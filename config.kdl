@@ -15,10 +15,22 @@ input {
     workspace-auto-back-and-forth
 }
 
+// ────────────── Output Configuration ──────────────
 // You can run `niri msg outputs` to get the correct name for your displays.
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
+
 output "Fujitsu Siemens Computers GmbH B24W-7 LED YV8R020291" {
+    focus-at-startup
     mode "1920x1200@59.950"
-    scale 1
+    scale 1.0
+    position x=-1920 y=0
+}
+
+output "eDP-1" {
+    focus-at-startup
+    mode "2560x1440@165.000" // Set resolution and refresh rate
+    scale 2.0
+    position x=0 y=0
 }
 
 binds {
