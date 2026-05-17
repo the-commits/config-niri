@@ -21,10 +21,16 @@ My [niri](https://github.com/YaLTeR/niri) Wayland compositor configuration.
 Toggles the GNOME color-scheme between `prefer-dark` and `prefer-light` via
 `dconf`. Bound to `MOD+SHIFT+C` in `config.kdl`.
 
-To rebuild after editing:
+To build everything:
 
 ```
-gcc -o scripts/color-scheme src/color-scheme.c
+make
+```
+
+To build just this program:
+
+```
+make color-scheme
 ```
 
 ## Debugging
@@ -41,7 +47,7 @@ When something doesn't work, start by isolating the problem:
    ```
 3. **Check compilation** – Rebuild with full warnings:
    ```
-   gcc -Wall -Wextra -o /tmp/test src/color-scheme.c && /tmp/test
+   make color-scheme
    ```
 4. **Insert debug prints** – Add `fprintf(stderr, "debug: ...\n");` to trace
    execution flow and variable values.
