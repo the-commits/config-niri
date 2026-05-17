@@ -1,45 +1,93 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+long syscall(long number, ...);
+extern char **environ;
 
-#define NOTIFY_TIMEOUT "5000"
-const char *GSETTINGS_PATH = "/org/gnome/desktop/interface/color-scheme";
-const char *DCONF_READ = "dconf read %s";
-const char *DCONF_WRITE = "dconf write %s \"'%s'\"";
+static int slen(const char *s) {
+  int n = 0;
+  while (*s++) n++;
+  return n;
+}
 
-int main() {
-  char buffer[128];
-  char cmd_read[256];
-  char cmd_write[256];
-  char notify_cmd[256];
-  char *new_mode_text;
-  char *new_mode_val;
-  FILE *fp;
+static char *scpy(char *d, const char *s) {
+  while (*s) *d++ = *s++;
+  return d;
+}
 
-  snprintf(cmd_read, sizeof(cmd_read), DCONF_READ, GSETTINGS_PATH);
-  fp = popen(cmd_read, "r");
-  if (fp == NULL)
-    return 1;
+static char *scpyn(char *d, const char *s, int n) {
+  while (n--) *d++ = *s++;
+  return d;
+}
 
-  if (fgets(buffer, sizeof(buffer), fp) == NULL ||
-      strstr(buffer, "prefer-dark") == NULL) {
-    new_mode_val = "prefer-dark";
-    new_mode_text = "Mörkt läge";
+static const char *sstr(const char *h, const char *n) {
+  if (!*n) return h;
+  for (; *h; h++) {
+    const char *a = h, *b = n;
+    while (*a && *b && *a == *b) a++, b++;
+    if (!*b) return h;
+  }
+  return 0;
+}
+
+#define S(s) s, sizeof(s) - 1
+
+static long run_sh(const char *cmd) {
+  long pid = syscall(57);
+  if (pid == 0) {
+    syscall(59, "/bin/sh",
+            (char *[]){(char *)"sh", (char *)"-c", (char *)cmd, 0}, environ);
+    syscall(60, 127);
+  }
+  while (syscall(61, pid, 0, 0, 0) > 0)
+    ;
+  return pid;
+}
+
+void _start(void) {
+  char buf[256];
+  int p[2];
+
+  syscall(22, p, 0);
+  long pid = syscall(57);
+  if (pid == 0) {
+    syscall(3, p[0]);
+    syscall(33, p[1], 1);
+    syscall(3, p[1]);
+    syscall(59, "/bin/sh",
+            (char *[]){(char *)"sh", (char *)"-c",
+                       (char *)"dconf read /org/gnome/desktop/interface/color-scheme",
+                       0},
+            environ);
+    syscall(60, 127);
+  }
+  syscall(3, p[1]);
+  int n = syscall(0, p[0], buf, 255);
+  syscall(3, p[0]);
+  while (syscall(61, pid, 0, 0, 0) > 0)
+    ;
+
+  const char *val;
+  const char *text;
+  if (n <= 0 || !sstr(buf, "prefer-dark")) {
+    val = "prefer-dark";
+    text = "Mörkt läge";
   } else {
-    new_mode_val = "prefer-light";
-    new_mode_text = "Ljust läge";
+    val = "prefer-light";
+    text = "Ljust läge";
   }
 
-  pclose(fp);
+  char cmd[256];
+  char *w = cmd;
+  w = scpyn(w, S("dconf write /org/gnome/desktop/interface/color-scheme \"'"));
+  w = scpy(w, val);
+  w = scpyn(w, "'\"", 2);
+  *w = 0;
+  run_sh(cmd);
 
-  snprintf(cmd_write, sizeof(cmd_write), DCONF_WRITE, GSETTINGS_PATH,
-           new_mode_val);
-  system(cmd_write);
+  w = cmd;
+  w = scpyn(w, S("notify-send -t 5000 System 'Ändrat till "));
+  w = scpy(w, text);
+  *w++ = '\'';
+  *w = 0;
+  run_sh(cmd);
 
-  snprintf(notify_cmd, sizeof(notify_cmd),
-           "notify-send -t %s 'System' 'Ändrat till %s'", NOTIFY_TIMEOUT,
-           new_mode_text);
-  system(notify_cmd);
-
-  return 0;
+  syscall(60, 0);
 }
