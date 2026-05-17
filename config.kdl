@@ -43,7 +43,7 @@ binds {
     MOD+Z                               hotkey-overlay-title="Open Browser: Zen Browser" { spawn-sh "zen-browser"; }
     MOD+ALT+L                           hotkey-overlay-title="Lock Screen: swaylock" { spawn-sh "swaylock"; }
     MOD+E                             	hotkey-overlay-title="File Manager: Nautilus" { spawn-sh "nautilus"; }
-    MOD+SHIFT+C                         hotkey-overlay-title="Toggle Color Scheme" { spawn-sh "tcc -run ~/.config/niri/scripts/color-scheme.c"; }
+    MOD+SHIFT+C                         hotkey-overlay-title="Toggle Color Scheme" { spawn-sh "~/.config/niri/scripts/color-scheme"; }
 
     XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
     XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
