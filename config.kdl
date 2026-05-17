@@ -23,10 +23,12 @@ output "Fujitsu Siemens Computers GmbH B24W-7 LED YV8R020291" {
 
 binds {
     MOD+SHIFT+ESCAPE                    { show-hotkey-overlay; }
+    
+    MOD+RETURN                          hotkey-overlay-title="Open Terminal: Ghostty with tmux" { spawn-sh "GTK_IM_MODULE=simple ghostty -e tmux new-session -A -s main"; }
 
-    MOD+RETURN                          hotkey-overlay-title="Open Terminal: alacritty" { spawn-sh "alacritty"; }
     MOD+SPACE                           hotkey-overlay-title="Open App Launcher: wofi" { spawn-sh "wofi"; }
-    MOD+B                               hotkey-overlay-title="Open Browser: firefox" { spawn-sh "firefox"; }
+    MOD+B                               hotkey-overlay-title="Open Browser: Google Chrome" { spawn-sh "google-chrome-stable"; }
+    MOD+Z                               hotkey-overlay-title="Open Browser: Zen Browser" { spawn-sh "zen-browser"; }
     MOD+ALT+L                           hotkey-overlay-title="Lock Screen: swaylock" { spawn-sh "swaylock"; }
     MOD+E                             	hotkey-overlay-title="File Manager: Nautilus" { spawn-sh "nautilus"; }
     MOD+SHIFT+C 			hotkey-overlay-title="Toggle Color Scheme" { spawn-sh "~/.config/niri/scripts/color-scheme.c"; }
@@ -124,7 +126,7 @@ binds {
     // ─── Modes ───
     MOD+T                               { toggle-window-floating; }
     MOD+SHIFT+F                         { fullscreen-window; }
-    MOD+F 				{ maximize-window-to-edges; }
+    MOD+F 				                      { maximize-window-to-edges; }
     MOD+W                               { toggle-column-tabbed-display; }
 
     // ─── Screenshots ───
@@ -143,12 +145,12 @@ binds {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#spawn-sh-at-startup
 
     spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1 &"
-    spawn-sh-at-startup "swww-daemon"
-    spawn-sh-at-startup "swww img /usr/share/wallpapers/cachyos-wallpapers/Skyscraper.png" 
+    spawn-sh-at-startup "awww-daemon"
+    spawn-sh-at-startup "awww img ~/Pictures/Wallpapers/remi-bertogliati-KTxMRE_qQOc-unsplash.jpg"
     spawn-sh-at-startup "waybar"
 
     prefer-no-csd
-    screenshot-path "~/Bilder/Screenshots/%Y-%m-%d_%H-%M-%S.png"
+    screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 
 // ────────────── Layout Settings ──────────────
 
