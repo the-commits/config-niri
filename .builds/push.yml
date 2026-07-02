@@ -3,8 +3,9 @@ image: alpine/edge
 packages:
   - git
 sources:
-  - https://git.sr.ht:~the-commits/niri
+  - git@git.sr.ht:~the-commits/niri
 secrets:
+  - 85e9df90-e412-4859-9f5f-73ca754ad505
   - 897269c2-f89e-4f84-92a9-ae772f42f161
 environment:
   repo_name: niri
@@ -14,6 +15,7 @@ tasks:
   - push: |
       set +x
       cd "${repo_name}"
+      export GIT_SSH_COMMAND="ssh -i ~/.ssh/builds_srht -o StrictHostKeyChecking=accept-new"
       github_token=$(cat ~/secrets/github_config_mirror_pat)
       github_url=$(printf \
         "https://%s:%s@github.com/%s" \
