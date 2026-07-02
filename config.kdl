@@ -160,7 +160,7 @@ binds {
 
     spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1 &"
     spawn-sh-at-startup "awww-daemon"
-    spawn-sh-at-startup "awww img ~/Pictures/Wallpapers/literal-wallpaper.png"
+    spawn-sh-at-startup "awww img ~/.config/niri/wallpapers/remi-bertogliati-KTxMRE_qQOc-unsplash.webp"
     spawn-sh-at-startup "waybar"
 
     prefer-no-csd
