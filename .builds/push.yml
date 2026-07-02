@@ -14,17 +14,12 @@ tasks:
   - push: |
       set +x
       cd "${repo_name}"
+      git config user.name "the-commits"
+      git config user.email "12031896+the-commits@users.noreply.github.com"
 
-      # Inject mirror notice for GitHub (not present on sourcehut)
-      cat > /tmp/notice.md <<'NOTICE'
+      printf '\n> **Do not open issues or pull requests on GitHub** — the mirror there is\n> [read-only](https://git.sr.ht/~the-commits/niri).\n> Please use the [sourcehut issue tracker](https://todo.sr.ht/~the-commits/niri)\n> and send patches to [~the-commits/niri@lists.sr.ht](mailto:~the-commits/niri@lists.sr.ht).\n\n' > /tmp/notice.md
 
-      > **Do not open issues or pull requests on GitHub** — the mirror there is
-      > [read-only](https://git.sr.ht/~the-commits/niri).
-      > Please use the [sourcehut issue tracker](https://todo.sr.ht/~the-commits/niri)
-      > and send patches to [~the-commits/niri@lists.sr.ht](mailto:~the-commits/niri@lists.sr.ht).
-
-      NOTICE
-      sed -i '3r /tmp/notice.md' README.md
+      sed -i '2r /tmp/notice.md' README.md
       git add README.md
       git commit -m "chore: add mirror notice (GitHub-only)"
 
@@ -34,4 +29,4 @@ tasks:
         "${github_username}" \
         "${github_token}" \
         "${github_repo}")
-      git push --all "${github_url}" -f
+      git push -f "${github_url}" HEAD:main
