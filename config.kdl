@@ -162,7 +162,7 @@ binds {
     spawn-sh-at-startup "awww-daemon"
     spawn-sh-at-startup "awww img ~/Pictures/Wallpapers/literal-wallpaper.png"
     spawn-sh-at-startup "waybar"
-    spawn-sh-at-startup "cliphist daemon &"
+    spawn-sh-at-startup "systemctl --user start cliphist"
     spawn-sh-at-startup "~/.config/niri/scripts/cliphist-tag-kdeconnect &"
 
     prefer-no-csd
