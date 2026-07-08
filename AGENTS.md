@@ -35,6 +35,5 @@ make clean        # remove all compiled binaries
 
 ## Git
 
-- Primary remote: `git.sr.ht:~the-commits/niri`
-- Mirror: `github.com:the-commits/config-niri.git`
+- Remote: `git.sr.ht:~the-commits/niri` (sourcehut mirrors to GitHub automatically)
 - Do not push without asking.
