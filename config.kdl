@@ -19,13 +19,6 @@ input {
 // You can run `niri msg outputs` to get the correct name for your displays.
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 
-output "Acer Technologies XZ323QK P1   151309CAF3W01" {
-    focus-at-startup
-    mode "3840x2160@165.000"
-    scale 1.0
-    position x=-3840 y=-1090
-}
-
 output "Fujitsu Siemens Computers GmbH B24W-7 LED YV8R020291" {
     focus-at-startup
     mode "1920x1200@59.950"
@@ -35,8 +28,8 @@ output "Fujitsu Siemens Computers GmbH B24W-7 LED YV8R020291" {
 
 output "eDP-1" {
     focus-at-startup
-    mode "2560x1440@165.000"
-    scale 1.3
+    mode "2560x1440@165.000" // Set resolution and refresh rate
+    scale 2.0
     position x=0 y=0
 }
 
