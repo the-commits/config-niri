@@ -9,7 +9,7 @@ input {
         tap
         natural-scroll
     }
-    focus-follows-mouse
+    // focus-follows-mouse
     workspace-auto-back-and-forth
 }
 // ────────────── Output Configuration ──────────────
@@ -18,8 +18,8 @@ input {
 output "Acer Technologies XZ323QK P1   151309CAF3W01" {
     focus-at-startup
     mode "3840x2160@165.000"
-    scale 1.0
-    position x=-3840 y=-1090
+    scale 2.0
+    position x=-1920 y=-600
 }
 output "Fujitsu Siemens Computers GmbH B24W-7 LED YV8R020291" {
     focus-at-startup
