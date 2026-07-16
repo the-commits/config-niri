@@ -1,5 +1,11 @@
 # niri Config
 
+
+> **Do not open issues or pull requests on GitHub** — the mirror there is
+> [read-only](https://git.sr.ht/~the-commits/niri).
+> Please use the [sourcehut issue tracker](https://todo.sr.ht/~the-commits/niri)
+> and send patches to [~the-commits/niri@lists.sr.ht](mailto:~the-commits/niri@lists.sr.ht).
+
 My [niri](https://github.com/YaLTeR/niri) Wayland compositor configuration.
 
 ## Requirements
